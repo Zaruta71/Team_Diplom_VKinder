@@ -2,11 +2,11 @@
 
 # Импорт библиотеки sqlalchemy для работы с базой данных
 import sqlalchemy as sq
+from config import DB_LOGIN
 from sqlalchemy.orm import sessionmaker
 
 # Импорт пользовательских модулей для создания таблиц и определения сущностей
 from models import create_tables, User, Candidate, Photo
-from config import DB_LOGIN
 
 # Формирование строки подключения к базе данных
 DSN = f'postgresql://{DB_LOGIN["login"]}:{DB_LOGIN["password"]}@{DB_LOGIN["host"]}:{DB_LOGIN["port"]}/{DB_LOGIN["database"]}'
@@ -57,11 +57,11 @@ def add_photos_to_db(photo: Photo):
 def show_favourite_list() -> list:
     '''Получение списка избранных кандидатов'''
     fav_list = []
-    for c_ in session.query(Candidate).join(Photo.candidate).\
-        filter(Candidate.is_favourite):
+    for c_ in session.query(Candidate).join(Photo.candidate). \
+            filter(Candidate.is_favourite):
         photo_list = []
-        for p_ in session.query(Photo).join(Candidate.photos).\
-            filter(Photo.candidate_vk_id == c_.vk_id):
+        for p_ in session.query(Photo).join(Candidate.photos). \
+                filter(Photo.candidate_vk_id == c_.vk_id):
             photo_list.append(p_)
         fav_list.append([c_, photo_list])
     return fav_list

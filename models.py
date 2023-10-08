@@ -49,7 +49,7 @@ class Candidate(Base):
         sq.Integer,
         sq.ForeignKey("user.vk_id"),
         nullable=False
-        )
+    )
 
     user = relationship('User', backref='candidates')
 
@@ -70,7 +70,7 @@ class Photo(Base):
         sq.Integer,
         sq.ForeignKey("candidate.vk_id"),
         nullable=False
-        )
+    )
 
     candidate = relationship('Candidate', backref='photos')
 

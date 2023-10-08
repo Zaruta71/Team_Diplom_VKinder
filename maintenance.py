@@ -4,9 +4,10 @@
 import datetime as dt
 from typing import List
 
+from config import USER_TOKEN
 # Импорт класса API из библиотеки vkbottle и токена пользователя из конфигурационного файла
 from vkbottle import API
-from config import USER_TOKEN
+
 # Импорт пользовательских моделей User, Candidate, Photo
 from models import User, Candidate, Photo
 
@@ -83,7 +84,7 @@ async def _get_top3_photo(photos: list) -> List[str]:
         f"photo{photo.owner_id}_{photo.id}_{photo.access_key}"
         if photo.access_key is not None
         else f"photo{photo.owner_id}_{photo.id}" for photo in top3_photo
-        ]
+    ]
 
 
 async def _make_photo(vk_link: str, candidate_vk_id: int) -> Photo:

@@ -3,15 +3,15 @@
 # Импортирование функции sleep из модуля time
 from time import sleep
 
+from config import GROUP_TOKEN
 # Импортирование необходимых компонентов из библиотеки vkbottle
 from vkbottle import API, Keyboard, EMPTY_KEYBOARD, Text, KeyboardButtonColor, CtxStorage
 from vkbottle.bot import Message, Bot
 
 # Импортирование пользовательских модулей и компонентов
 import db_interaction
-from config import GROUP_TOKEN
-from models import User
 from maintenance import _make_user, _candidate_search, _make_candidate, _get_photos, _make_photo, _get_top3_photo
+from models import User
 
 # Создание экземпляра API с использованием токена группы
 api = API(GROUP_TOKEN)
@@ -21,6 +21,7 @@ bot = Bot(api=api)
 
 # Создание хранилища контекста
 ctx_storage = CtxStorage()
+
 
 # Определение обработчика для команды "start" или текста "/start"
 @bot.on.message(payload={"command": "start"})
@@ -35,6 +36,7 @@ async def start_handler(message: Message):
     ).get_json()
     # Отправка приветственного сообщения и отображение клавиатуры
     await message.answer("Привет. Ищешь пару?", keyboard=keyboard)
+
 
 # Определение обработчика для команды "/get_user_info"
 @bot.on.message(payload={"command": "/get_user_info"})
@@ -58,6 +60,7 @@ async def get_user_info_handler(message: Message):
 
     # Отправка сообщения о начале поиска и отображение клавиатуры
     await message.answer("Начинаю поиск...", keyboard=keyboard)
+
 
 # Определение обработчика для команды "/show_candidate"
 @bot.on.message(payload={"command": "/show_candidate"})
@@ -144,8 +147,9 @@ async def favourite_list_handler(message: Message):
 
     for candidate in candidates:
         # Отображение списка избранных кандидатов пользователю
-        await message.answer(f"Вот список избранных:\n{candidate[0].first_name} {candidate[0].last_name}\n{candidate[0].vk_link}\n",
-                             attachment=[photo.vk_link for photo in candidate[1]], keyboard=keyboard)
+        await message.answer(
+            f"Вот список избранных:\n{candidate[0].first_name} {candidate[0].last_name}\n{candidate[0].vk_link}\n",
+            attachment=[photo.vk_link for photo in candidate[1]], keyboard=keyboard)
         # Пауза для предотвращения засорения чата
         sleep(0.5)
 
