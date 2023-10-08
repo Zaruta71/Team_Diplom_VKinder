@@ -1,8 +1,8 @@
 # About
 
 A simple chat bot for finding candidates for romantic dates.
-![bot's dialog shema](https://github.com/Zaruta71/vkinder_dev/raw/main/dialog_shema.jpg)
-![database shema](https://github.com/Zaruta71/vkinder_dev/raw/main/db_shema.jpg)
+![bot's dialog shema](https://github.com/Zaruta71/Team_Diplom_VKinder/raw/main/dialog_shema.jpg)
+![database shema](https://github.com/Zaruta71/Team_Diplom_VKinder/raw/main/db_shema.jpg)
 
 # Installation
 
